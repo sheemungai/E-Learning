@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container py-5">
+    <h2>{{ item.title }}</h2>
+    <p class="lead">{{ item.description }}</p>
+    
+    {% if item.price %}
+        <p><strong>Price:</strong> ${{ item.price }}</p>
+    {% endif %}
+    
+    {% if item.category %}
+        <p><strong>Category:</strong> {{ item.category }}</p>
+    {% endif %}
+    
+    {% if item.tutor %}
+        <p><strong>Tutor:</strong> {{ item.tutor }}</p>
+    {% endif %}
+    
+    {% if item.duration %}
+        <p><strong>Duration:</strong> {{ item.duration }}</p>
+    {% endif %}
+</div>
+{% endblock %}
