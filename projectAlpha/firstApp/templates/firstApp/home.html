@@ -1,3 +1,13 @@
 {% extends 'index.html' %}
 {% block content %}
+
+<div class="container py-5">
+   
+
+    {% for item in data %}
+    <a href="{% url 'readOneCourse' item.id %}" class="text-decoration-none px-2 py-1">
+        {{item.title}}
+    </a>
+    {% endfor %}
+</div>
 {% endblock %}
