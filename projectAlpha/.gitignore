@@ -1,10 +1,8 @@
-"" 
-"# Python cache" 
-"*.pyc" 
-"__pycache__/" 
-"" 
-"# Database" 
-"db.sqlite3" 
-"db.sqlite3-journal" 
-"" 
 
+# Python cache
+*.pyc
+__pycache__/
+#
+# Database
+db.sqlite3
+db.sqlite3-journal
