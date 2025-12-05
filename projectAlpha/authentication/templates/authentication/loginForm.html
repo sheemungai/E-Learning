@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container py-5" >
+    <div class="mx-auto border rounded-3 shadow-lg p-4" style="max-width: 500px;">
+        <form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" >
+     </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+    </div>
+   
+    <button type="submit" class="btn btn-dark text-light">Login</button>
+    <br><br>
+    <div>
+        <p class="fw-bold"> Don't have an account?
+            
+<a href="{% url 'register' %}" class="text-decoration-none mx-2">Register here</a>
+</p>
+    </div>
+</form>
+    </div>
+</div>
+{% endblock %}
