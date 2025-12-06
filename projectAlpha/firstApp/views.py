@@ -7,6 +7,18 @@ def home(request):
     context={}
     return render(request, 'firstApp/home.html', context)
 
+def about(request):
+    context={}
+    return render(request, 'firstApp/about.html', context)
+
+def courses(request):
+    courses = Course.objects.all()
+    context={'courses': courses}
+    return render(request, 'firstApp/courses.html', context)
+
+def contact(request):
+    context={}
+    return render(request, 'firstApp/contact.html', context)
 
 def createCourse(request):
     form = CourseForm()
@@ -47,7 +59,7 @@ def createSubscription(request):
 def readCourses(request):
     courses = Course.objects.all()
     context ={'data':courses}
-    return render(request, 'firstApp/home.html', context)
+    return render(request, 'firstApp/courses.html', context)
 
 def readLessons(request):
     lessons = Lesson.objects.all()

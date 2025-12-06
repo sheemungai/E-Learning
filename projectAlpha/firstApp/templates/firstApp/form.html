@@ -1,11 +1,14 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<form action="" method="POST" ></form>
+<div class="container my-5">
+    <h2>Add a new course</h2>
+<form action="" method="POST" >
 {% csrf_token %}
 {{ form.as_p}}
 
 <button value="submit">submit</button>
-
+</form>
+</div>
 
 {% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<section class="min-vh-100 py-5 bg-white">
+    <div class="container py-5">
+
+        <h1 class="display-3 fw-bold text-info mb-5">Contact Us</h1>
+
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="card bg-info bg-opacity-10 border-info border-2 shadow-lg p-4">
+                    <div class="card-body">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstname" class="form-label text-info fw-semibold small">First Name*</label>
+                                    <input
+                                        type="text"
+                                        class="form-control border-info"
+                                        id="firstname"
+                                        name="firstname"
+                                        placeholder="First Name"
+                                        required
+                                    />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastname" class="form-label text-info fw-semibold small">Last Name*</label>
+                                    <input
+                                        type="text"
+                                        class="form-control border-info"
+                                        id="lastname"
+                                        name="lastname"
+                                        placeholder="Last Name"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label text-info fw-semibold small">Email*</label>
+                                    <input
+                                        type="email"
+                                        class="form-control border-info"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Your Email"
+                                        required
+                                    />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label text-info fw-semibold small">Phone Number*</label>
+                                    <input
+                                        type="tel"
+                                        class="form-control border-info"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="Phone Number"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="company" class="form-label text-info fw-semibold small">Company Name*</label>
+                                <input
+                                    type="text"
+                                    class="form-control border-info"
+                                    id="company"
+                                    name="company"
+                                    placeholder="Company Name"
+                                />
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label text-info fw-semibold small">Message</label>
+                                <textarea
+                                    class="form-control border-info"
+                                    id="message"
+                                    name="message"
+                                    rows="4"
+                                    placeholder="Your message..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-warning btn-lg w-100 fw-semibold shadow">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="col-lg-6">
+                <div>
+                    <p class="text-warning text-uppercase small mb-2 fw-bold">CONTACT US</p>
+                    <h2 class="display-6 fw-bold text-info mb-4">Get in Touch!</h2>
+
+                    <div class="mb-4">
+                        <div class="d-flex align-items-start mb-4 bg-info bg-opacity-10 p-3 rounded shadow-sm ">
+                            <div class="rounded-circle bg-warning p-3 me-4">
+                                <i class="bi bi-envelope-fill text-info fs-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-uppercase small text-warning fw-bold mb-1">E-MAIL ADDRESS</p>
+                                <a href="mailto:info@etech.com" class="text-info text-decoration-none fs-5">info@etech.com</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-4 bg-info bg-opacity-10 p-3 rounded shadow-sm ">
+                            <div class="rounded-circle bg-warning p-3 me-4">
+                                <i class="bi bi-telephone-fill text-info fs-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-uppercase small text-warning fw-bold mb-1">PHONE NUMBER</p>
+                                <a href="tel:+254700000000" class="text-info text-decoration-none fs-5">+254 700 000 000</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-4 bg-info bg-opacity-10 p-3 rounded shadow-sm ">
+                            <div class="rounded-circle bg-warning p-3 me-4">
+                                <i class="bi bi-geo-alt-fill text-info fs-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-uppercase small text-warning fw-bold mb-1">OFFICE LOCATION</p>
+                                <p class="text-info fs-5 mb-0">Nairobi, Kenya</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start bg-info bg-opacity-10 p-3 rounded shadow-sm ">
+                            <div class="rounded-circle bg-warning p-3 me-4">
+                                <i class="bi bi-briefcase-fill text-info fs-4"></i>
+                            </div>
+                            <div>
+                                <p class="text-uppercase small text-warning fw-bold mb-1">CAREERS</p>
+                                <a href="mailto:careers@etech.com" class="text-info text-decoration-none fs-5">careers@etech.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
