@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-info">
+<nav class="navbar navbar-expand-lg bg-info navbar-dark">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">I-Learn</a>
+    <a class="navbar-brand fw-bold text-warning" href="{% url 'home' %}">E-TECH</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -15,14 +15,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active fw-semibold text-dark" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About Us</a>
+          <a class="nav-link fw-semibold text-dark" href="{% url 'about' %}">About Us</a>
         </li>
         <li class="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link dropdown-toggle fw-semibold text-dark"
             href="#"
             role="button"
             data-bs-toggle="dropdown"
@@ -31,10 +31,10 @@
             Dropdown
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item fw-semibold text-dark" href="{% url 'courses' %}">Courses</a></li>
+            <li><a class="dropdown-item fw-semibold text-dark" href="{% url 'contact' %}">Contact Us</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item fw-semibold text-dark" href="#">Something else here</a></li>
           </ul>
         </li>
       </ul>
@@ -46,7 +46,7 @@
         >Logout</a
       >
       {% else %}
-      <a href="{% url 'login' %}" class="btn btn-outline-success px-4 mx-2"
+      <a href="{% url 'login' %}" class="btn btn-outline-warning px-4 mx-2"
         >Login</a
       >
       {% endif %}
@@ -57,7 +57,7 @@
           placeholder="Search"
           aria-label="Search"
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-warning" type="submit">Search</button>
       </form>
     </div>
   </div>

@@ -3,6 +3,9 @@ from . import views
 
 urlpatterns =[
     path('home', views.home, name='home'),
+    path('about', views.about, name='about'),
+    path('courses', views.courses, name='courses'),
+    path('contact', views.contact, name='contact'),
 
     # CRUD 
     path('create-course', views.createCourse , name=' createCourse'),
