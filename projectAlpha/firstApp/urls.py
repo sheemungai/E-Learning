@@ -18,4 +18,14 @@ urlpatterns =[
     path('read-courses/<str:pk>', views.readOneCourse, name='readOneCourse'),
     path('read-lessons/<str:pk>', views.readOneLesson, name='readOneLesson'),
     path('read-subscriptions/<str:pk>', views.readOneSubscription, name='readOneSubscription'),
+
+    # update one
+    path('update-course/<str:pk>', views.updateCourse, name='updateCourse'),
+    path('update-lesson/<str:pk>', views.updateLesson, name='updateLesson'),
+    path('update-subscription/<str:pk>', views.updateSubscription, name='updateSubscription'),
+
+    # delete one
+    path('delete-course/<str:pk>', views.deleteCourse, name='deleteCourse'),
+    path('delete-lesson/<str:pk>', views.deleteLesson, name='deleteLesson'),
+    path('delete-subscription/<str:pk>', views.deleteSubscription, name='deleteSubscription'),  
 ]

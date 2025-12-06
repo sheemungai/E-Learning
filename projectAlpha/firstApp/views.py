@@ -74,3 +74,67 @@ def readOneSubscription(request, pk):
     subscription = Subscription.objects.get(id=pk)
     context ={'item':subscription}
     return render(request, 'firstApp/item.html', context)
+
+
+#   update one
+def updateCourse(request, pk):
+    course = Course.objects.get(id=pk)
+    form = CourseForm(instance=course)
+
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context={'form' : form}
+    return render(request,'firstApp/form.html' ,context)
+
+def updateLesson(request, pk):
+    lesson = Lesson.objects.get(id=pk)
+    form = LessonForm(instance=lesson)
+
+    if request.method == 'POST':
+        form = LessonForm(request.POST, instance=lesson)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context={'form' : form}
+    return render(request,'firstApp/form.html' ,context)
+
+def updateSubscription(request, pk):
+    subscription = Subscription.objects.get(id=pk)
+    form = SubscriptionForm(instance=subscription)
+
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST, instance=subscription)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context={'form' : form}
+    return render(request,'firstApp/form.html' ,context)
+
+
+# delete 
+def deleteCourse(request, pk):
+    course = Course.objects.get(id=pk)
+    if request.method == 'POST':
+        course.delete()
+        return redirect('home')
+    context={'item':course}
+    return render(request, 'firstApp/delete.html', context)
+
+def deleteLesson(request, pk):
+    lesson = Lesson.objects.get(id=pk)
+    if request.method == 'POST':
+        lesson.delete()
+        return redirect('home')
+    context={'item':lesson}
+    return render(request, 'firstApp/delete.html', context)
+
+def deleteSubscription(request, pk):
+    subscription = Subscription.objects.get(id=pk)
+    if request.method == 'POST':
+        subscription.delete()
+        return redirect('home')
+    context={'item':subscription}
+    return render(request, 'firstApp/delete.html', context)
