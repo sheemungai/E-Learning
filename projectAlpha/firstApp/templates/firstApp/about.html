@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- Text Content -->
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold text-warning mb-4" id="about">About Us</h2>
+                
+                <div class="mb-4">
+                    <p class="lead">At <span class="text-warning fw-bold" href="{% url 'home' %}">E-TECH</span>, we are dedicated to providing high-quality online education that 
+                    empowers individuals to achieve their learning goals. Our platform offers a wide range of courses 
+                    in technology, programming, data science, and more, designed by 
+                    industry experts to ensure practical knowledge and skills.</p>
+                </div>
+               
+                <div class="card border-0 shadow-sm mb-4 bg-white">
+                    <div class="card-body p-4">
+                        <h3 class="h4 text-warning fw-semibold mb-3">
+                            <i class="bi bi-bullseye"></i> Our Mission
+                        </h3>
+                        <p class="mb-0">Our mission is to make education accessible to everyone,
+                         everywhere. We believe in the power of learning to transform lives and communities. 
+                         Whether you're a beginner looking to start your journey or a professional 
+                         seeking to upskill, E-TECH has something for you.</p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning border-0 shadow-sm" role="alert">
+                    <p class="mb-0 fw-semibold">
+                        <i class="bi bi-people-fill"></i> Join us today and be part of a vibrant learning
+                         community that values growth, innovation, and excellence.
+                    </p>
+                </div>
+
+                <div class="mt-4">
+                    <a href="#courses" class="btn btn-warning btn-lg fw-semibold me-3">Explore Courses</a>
+                    <a href="#contact" class="btn btn-outline-warning btn-lg fw-semibold">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="https://i.pinimg.com/736x/02/33/d8/0233d86c00fa9d82e7601986f48f12ae.jpg" 
+                         alt="a guy smiling while using a laptop" 
+                         class="img-fluid rounded shadow-lg">
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="row text-center mt-5 pt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="text-warning display-4 mb-3">
+                            <i class="bi bi-book"></i>
+                        </div>
+                        <h3 class="fw-bold text-warning">50+</h3>
+                        <p class="text-muted">Courses Available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="text-warning display-4 mb-3">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h3 class="fw-bold text-warning">500+</h3>
+                        <p class="text-muted">Active Students</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="text-warning display-4 mb-3">
+                            <i class="bi bi-award"></i>
+                        </div>
+                        <h3 class="fw-bold text-warning">100%</h3>
+                        <p class="text-muted">Satisfaction Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ {% include 'footer.html' %}
+{% endblock %}

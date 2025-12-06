@@ -1,13 +1,77 @@
 {% extends 'index.html' %}
-{% block content %}
 
-<div class="container py-5">
-   
+ {% block content %} {% load static %}
+ 
 
-    {% for item in data %}
-    <a href="{% url 'readOneCourse' item.id %}" class="text-decoration-none px-2 py-1">
-        {{item.title}}
-    </a>
-    {% endfor %}
+<div
+  class="position-relative min-vh-100 d-flex align-items-center"
+  style="
+    background-image: url('https://i.pinimg.com/1200x/e2/39/ce/e239ce52452274252c5560eb20466617.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  "
+>
+  <div
+    class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"
+  ></div>
+
+  <div
+    class="container text-center text-white position-relative"
+    style="z-index: 1"
+  >
+    <h1 class="display-1 fw-bold text-warning mb-4 text-shadow">
+      Welcome to E-TECH
+    </h1>
+
+    <h2 class="display-6 fw-semibold mb-4">
+      Your gateway to learning and innovation.
+    </h2>
+
+    <p class="lead fs-4 mb-5 mx-auto" style="max-width: 800px">
+      Explore our courses and start your journey today. Where knowledge meets
+      technology. A space for growth and discovery.
+    </p>
+
+    <div class="mb-5">
+      <a
+        href="{% url 'about' %}"
+        class="btn btn-warning btn-lg fw-semibold px-5 py-3 me-3 mb-3 shadow"
+      >
+        Learn More About Us
+      </a>
+      <a
+        href="#courses"
+        class="btn btn-outline-light btn-lg fw-semibold px-5 py-3 mb-3 shadow"
+      >
+        Browse Courses
+      </a>
+    </div>
+
+    <div class="row justify-content-center mt-5 g-3">
+      <div class="col-auto">
+        <span
+          class="badge bg-warning bg-opacity-25 border border-warning text-warning px-4 py-3 rounded-pill fs-6"
+        >
+          ⚡ Fast Learning
+        </span>
+      </div>
+      <div class="col-auto">
+        <span
+          class="badge bg-warning bg-opacity-25 border border-warning text-warning px-4 py-3 rounded-pill fs-6"
+        >
+          🏆 Certified Courses
+        </span>
+      </div>
+      <div class="col-auto">
+        <span
+          class="badge bg-warning bg-opacity-25 border border-warning text-warning px-4 py-3 rounded-pill fs-6"
+        >
+          👥 Expert Instructors
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
+ {% include 'footer.html' %}
 {% endblock %}
