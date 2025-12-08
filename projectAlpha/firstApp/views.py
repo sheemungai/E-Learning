@@ -20,6 +20,15 @@ def contact(request):
     context={}
     return render(request, 'firstApp/contact.html', context)
 
+def courseLessons(request, pk):
+    course = Course.objects.get(id=pk)
+    lessons = course.lessons.all()
+    context = {
+        'course': course,
+        'lessons': lessons
+    }
+    return render(request, 'firstApp/lessons.html', context)
+
 def createCourse(request):
     form = CourseForm()
 
