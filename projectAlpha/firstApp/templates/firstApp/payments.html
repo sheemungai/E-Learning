@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="display-6 text-center mb-4 text-warning">Make Your Payment</h1>
+
+                    <!-- Show success/error messages -->
+                    {% if success %}
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> {{ message }}
+                    </div>
+                    {% elif success == False %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-x-circle"></i> {{ error }}
+                    </div>
+                    {% endif %}
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input 
+                                type="tel" 
+                                class="form-control" 
+                                id="phoneNumber" 
+                                name="phoneNumber" 
+                                placeholder="0712345678"
+                                required
+                                pattern="[0-9]{10}"
+                            >
+                            <div class="form-text">
+                                Enter your Safaricom M-Pesa number (10 digits)
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Amount (KSh)</label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="amount" 
+                                name="amount"
+                                min="1"
+                                placeholder="100"
+                                required
+                            >
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100 fw-semibold">
+                            <i class="bi bi-phone"></i> Pay Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+         
+        </div>
+    </div>
+</div>
+{% endblock %}
