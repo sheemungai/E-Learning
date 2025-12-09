@@ -1,0 +1,100 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<!-- Course Header Section -->
+<section class="bg-info bg-gradient text-white py-3">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="mb-2">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'courses' %}" class="text-white text-decoration-none">Courses</a></li>
+        <li class="breadcrumb-item active text-white-50" aria-current="page">{{ course.title }}</li>
+      </ol>
+    </nav>
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h3 class="fw-bold mb-2">{{ course.title }}</h3>
+        <p class="mb-2">{{ course.description }}</p>
+        <div class="d-flex gap-3 align-items-center flex-wrap">
+          <span class="badge bg-warning text-dark">{{ course.category }}</span>
+          <span class="small"><i class="bi bi-person-circle"></i> {{ course.tutor }}</span>
+          <span class="small"><i class="bi bi-play-circle"></i> {{ lessons.count }} Lesson{{ lessons.count|pluralize }}</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Lessons Section -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h4 class="fw-bold mb-4">Course Lessons</h4>
+
+    {% if lessons %}
+    <div class="row g-4">
+      {% for lesson in lessons %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+            <img src="{{ lesson.image }}" class="card-img-top" alt="{{ lesson.title }}" style="height: 200px; object-fit: cover;">
+          
+          <div class="card-body">
+            <span class="badge bg-dark mb-2">Lesson {{ forloop.counter }}</span>
+            {% if lesson.duration %}
+            <span class="badge bg-warning text-dark mb-2">{{ lesson.duration }}</span>
+            {% endif %}
+            
+            <h5 class="card-title fw-bold">{{ lesson.title }}</h5>
+            <p class="card-text">{{ lesson.description }}</p>
+            
+            <!-- Active Links for Video and PDF -->
+            <div class="d-flex gap-2 mb-3">
+              {% if lesson.video_url %}
+                <a href="{{ lesson.video_url }}" target="_blank" class="btn btn-sm btn-primary">
+                  <i class="bi bi-camera-video"></i> Watch Video
+                </a>
+              {% endif %}
+              
+              {% if lesson.video_file %}
+                <a href="{{ lesson.video_file.url }}" target="_blank" class="btn btn-sm btn-primary">
+                  <i class="bi bi-camera-video"></i> Watch Video
+                </a>
+              {% endif %}
+              
+              {% if lesson.pdf %}
+                <a href="{{ lesson.pdf.url }}" target="_blank" class="btn btn-sm btn-danger">
+                  <i class="bi bi-file-pdf"></i> View PDF
+                </a>
+              {% endif %}
+            </div>
+            
+            <a href="{% url 'readOneLesson' lesson.id %}" class="btn btn-info text-white w-100">
+              <i class="bi bi-play-circle"></i> Start Lesson
+            </a>
+          </div>
+          
+          <div class="card-footer text-muted">
+            <small><i class="bi bi-calendar3"></i> {{ lesson.created_at|date:"M d, Y" }}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- No Lessons Available -->
+    <div class="text-center py-5">
+      <i class="bi bi-journal-x display-1 text-muted"></i>
+      <h3 class="text-muted mt-3">No lessons available yet</h3>
+      <p class="text-secondary">Lessons for this course are coming soon!</p>
+      <a href="{% url 'courses' %}" class="btn btn-primary">
+        <i class="bi bi-arrow-left"></i> Back to Courses
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+{% include 'footer.html' %}
+{% endblock %}

@@ -25,7 +25,7 @@ def loginUser(request):
 
         if user is not None: 
             login(request, user)
-            return redirect('home.html')  #
+            return redirect('home')  
         else:
             print('Wrong Credentials!!')
 

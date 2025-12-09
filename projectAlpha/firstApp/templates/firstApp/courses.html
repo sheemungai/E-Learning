@@ -1,8 +1,8 @@
 {% extends 'index.html' %} {% block content %}
 
 <!-- Hero Section -->
-<section class="bg-info bg-gradient text-white py-5">
-  <div class="container text-center py-5">
+<section class="bg-info bg-gradient text-white py-3">
+  <div class="container text-center py-2">
     <h1 class="display-3 fw-bold mb-3">Our Courses</h1>
     <p class="lead fs-4 mb-4">
       Discover our wide range of courses designed to help you excel
@@ -24,6 +24,7 @@
         </div>
       </div>
     </div>
+    
   </div>
 </section>
 
@@ -50,7 +51,7 @@
 
     <!-- Courses Grid -->
     {% if courses %}
-    
+
     <div class="row g-4">
       {% for course in courses %}
       <div class="col-md-6 col-lg-4">
@@ -99,8 +100,12 @@
           <!-- Card Footer -->
           <div class="card-footer bg-transparent border-top-0 pt-0 pb-3">
             <div class="d-flex justify-content-between text-muted small">
-             
-              <span><i class="bi bi-book"></i> Lessons Available</span>
+              <a
+                href="{% url 'courseLessons' course.id %}"
+                class="btn btn-info text-white fw-semibold"
+              >
+                <i class="bi bi-journal-text"></i> View Lessons
+              </a>
             </div>
           </div>
         </div>
