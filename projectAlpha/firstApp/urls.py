@@ -7,6 +7,8 @@ urlpatterns =[
     path('courses', views.courses, name='courses'),
     path('contact', views.contact, name='contact'),
     path('course-lessons/<str:pk>', views.courseLessons, name='courseLessons'),
+    path('mpesaPayment', views.mpesaPayment, name='mpesaPayment'),
+
 
     # CRUD 
     path('create-course', views.createCourse , name=' createCourse'),

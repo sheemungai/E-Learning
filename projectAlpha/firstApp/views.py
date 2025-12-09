@@ -1,6 +1,9 @@
+from urllib import request, response
 from django.shortcuts import render, redirect
 from . forms import CourseForm, LessonForm, SubscriptionForm
 from . models import Course, Lesson, Subscription
+from django.http import HttpResponse
+from django_daraja.mpesa.core import MpesaClient
 
 # Create your views here.
 def home(request):
@@ -159,3 +162,62 @@ def deleteSubscription(request, pk):
         return redirect('home')
     context={'item':subscription}
     return render(request, 'firstApp/delete.html', context)
+
+# daraja payments
+
+def index(request):
+    # cl = MpesaClient()
+    # # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+    # phone_number = '0701715057'
+    # amount = 1
+    # account_reference = 'reference'
+    # transaction_desc = 'Description'
+    # callback_url = 'https://api.darajambili.com/express-payment'
+    # response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
+
+def mpesaPayment(request): 
+    cl = MpesaClient()
+    accountReference = 'courses payment'
+    transactionDesc = 'Payment for course enrollment'
+    callbackUrl = 'https://api.darajambili.com/express-payment'
+
+    if request.method == 'POST':
+        phoneNumber = request.POST.get('phoneNumber')
+        amount = request.POST.get('amount')
+        
+        # Debug: Print to console
+        print(f"Phone: {phoneNumber}, Amount: {amount}")
+        
+        try:
+            amount = int(amount)
+            response = cl.stk_push(phoneNumber, amount, accountReference, transactionDesc, callbackUrl)
+            
+            # Show the response
+            context = {
+                'response': response,
+                'success': True,
+                'message': 'STK Push sent! Check your phone.'
+            }
+            print(f"M-Pesa Response: {response}")
+            
+        except ValueError as e:
+            context = {
+                'error': f'Invalid amount: {amount}',
+                'success': False
+            }
+            print(f"ValueError: {e}")
+            
+        except Exception as e:
+            context = {
+                'error': str(e),
+                'success': False,
+                'message': 'Failed to send STK push'
+            }
+            print(f"Error: {e}")
+        
+        return render(request, 'firstApp/payments.html', context)
+    
+    # GET request - show form
+    context = {}
+    return render(request, 'firstApp/payments.html', context)
