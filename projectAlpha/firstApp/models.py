@@ -71,3 +71,37 @@ class Subscription(models.Model):
         return self.name
 
 
+# Add this to the end of models.py
+
+class Payment(models.Model):
+    PAYMENT_STATUS = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+        ('cancelled', 'Cancelled'),
+    ]
+    
+    PAYMENT_METHOD = [
+        ('mpesa', 'M-Pesa'),
+        ('card', 'Credit/Debit Card'),
+        ('paypal', 'PayPal'),
+    ]
+    
+    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='payments', null=True, blank=True)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='payments')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='payments')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    phone_number = models.CharField(max_length=15, blank=True)
+    transaction_id = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD, default='mpesa')
+    status = models.CharField(max_length=20, choices=PAYMENT_STATUS, default='pending')
+    payment_date = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Payment {self.id} - {self.user.username} - {self.course.title} - {self.status}"
+    
+    class Meta:
+        ordering = ['-created_at']
+

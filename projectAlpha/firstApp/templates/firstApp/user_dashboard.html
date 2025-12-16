@@ -1,0 +1,291 @@
+{% extends 'index.html' %} {% block content %}
+
+<!-- Hero Section -->
+<section class="bg-info bg-gradient text-white py-4">
+  <div class="container">
+    <h2 class="fw-bold">Welcome back, {{ user.username }}! 👋</h2>
+    <p class="mb-0">Track your learning progress and manage your courses</p>
+  </div>
+</section>
+
+<!-- Dashboard Stats -->
+<section class="py-4 bg-light">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body text-center">
+            <i class="bi bi-book-fill text-info display-4"></i>
+            <h3 class="mt-3 mb-0">{{ total_courses }}</h3>
+            <p class="text-muted mb-0">Active Courses</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body text-center">
+            <i class="bi bi-clock-fill text-warning display-4"></i>
+            <h3 class="mt-3 mb-0">{{ pending_payments }}</h3>
+            <p class="text-muted mb-0">Pending Payments</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body text-center">
+            <i class="bi bi-cash-coin text-success display-4"></i>
+            <h3 class="mt-3 mb-0">KSh {{ total_spent }}</h3>
+            <p class="text-muted mb-0">Total Spent</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body text-center">
+            <i class="bi bi-check-circle-fill text-success display-4"></i>
+            <h3 class="mt-3 mb-0">{{ payments.count }}</h3>
+            <p class="text-muted mb-0">Completed Payments</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Left Column -->
+      <div class="col-lg-8">
+        <!-- My Active Courses -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-info text-white">
+            <h5 class="mb-0">
+              <i class="bi bi-journal-text"></i> My Active Courses
+            </h5>
+          </div>
+          <div class="card-body">
+            {% if active_enrollments %}
+            <div class="row g-3">
+              {% for enrollment in active_enrollments %}
+              <div class="col-md-6">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h6 class="card-title fw-bold">
+                      {{ enrollment.course.title }}
+                    </h6>
+                    <p class="card-text small text-muted">
+                      {{ enrollment.course.description|truncatewords:15 }}
+                    </p>
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <small class="text-muted">
+                        <i class="bi bi-calendar"></i> {{
+                        enrollment.enrollment_date|date:"M d, Y" }}
+                      </small>
+                      <a
+                        href="{% url 'courseLessons' enrollment.course.id %}"
+                        class="btn btn-sm btn-info text-white"
+                      >
+                        Continue <i class="bi bi-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+              <i class="bi bi-inbox display-4 text-muted"></i>
+              <p class="text-muted mt-3">
+                No active courses yet. Start learning today!
+              </p>
+              <a href="{% url 'courses' %}" class="btn btn-info text-white"
+                >Browse Courses</a
+              >
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Pending Payments -->
+        {% if pending_enrollments %}
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-warning">
+            <h5 class="mb-0">
+              <i class="bi bi-exclamation-triangle"></i> Pending Payments
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="list-group">
+              {% for enrollment in pending_enrollments %}
+              <div
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <h6 class="mb-1">{{ enrollment.course.title }}</h6>
+                  <small class="text-muted"
+                    >Enrolled: {{ enrollment.enrollment_date|date:"M d, Y"
+                    }}</small
+                  >
+                </div>
+                <div class="text-end">
+                  <h6 class="text-warning mb-1">
+                    KSh {{ enrollment.course.price }}
+                  </h6>
+                  <!-- Pending Payments -->
+                  {% if pending_enrollments %}
+                  <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-warning">
+                      <h5 class="mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> Pending
+                        Payments
+                      </h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="list-group">
+                        {% for enrollment in pending_enrollments %}
+                        <div
+                          class="list-group-item d-flex justify-content-between align-items-center"
+                        >
+                          <div>
+                            <h6 class="mb-1">{{ enrollment.course.title }}</h6>
+                            <small class="text-muted"
+                              >Enrolled: {{ enrollment.enrollment_date|date:"M
+                              d, Y" }}</small
+                            >
+                          </div>
+                          <div class="text-end">
+                            <h6 class="text-warning mb-1">
+                              KSh {{ enrollment.course.price }}
+                            </h6>
+                            <a
+                              href="{% url 'mpesaPayment' %}"
+                              class="btn btn-sm btn-warning"
+                            >
+                              Pay Now
+                            </a>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <a
+                    href="{% url 'coursePayment' enrollment.id %}"
+                    class="btn btn-sm btn-warning"
+                  >
+                    <i class="bi bi-credit-card"></i> Pay Now
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Recent Payments -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white">
+            <h5 class="mb-0"><i class="bi bi-receipt"></i> Recent Payments</h5>
+          </div>
+          <div class="card-body">
+            {% if payments %}
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Course</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for payment in payments %}
+                  <tr>
+                    <td>{{ payment.course.title }}</td>
+                    <td>KSh {{ payment.amount }}</td>
+                    <td>
+                      {% if payment.status == 'completed' %}
+                      <span class="badge bg-success">Completed</span>
+                      {% elif payment.status == 'pending' %}
+                      <span class="badge bg-warning">Pending</span>
+                      {% else %}
+                      <span class="badge bg-danger">{{ payment.status }}</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ payment.created_at|date:"M d, Y" }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <p class="text-muted text-center py-3">No payment history yet</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="col-lg-4">
+        <!-- Quick Actions -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-primary text-white">
+            <h6 class="mb-0"><i class="bi bi-lightning"></i> Quick Actions</h6>
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a href="{% url 'courses' %}" class="btn btn-outline-info">
+                <i class="bi bi-search"></i> Browse Courses
+              </a>
+              <a href="{% url 'contact' %}" class="btn btn-outline-info">
+                <i class="bi bi-question-circle"></i> Get Help
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommended Courses -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white">
+            <h6 class="mb-0"><i class="bi bi-star"></i> Recommended for You</h6>
+          </div>
+          <div class="card-body">
+            {% if available_courses %} {% for course in available_courses %}
+            <div class="mb-3">
+              <h6 class="fw-bold">{{ course.title }}</h6>
+              <p class="small text-muted mb-2">
+                {{ course.description|truncatewords:10 }}
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-warning fw-bold">KSh {{ course.price }}</span>
+                <a
+                  href="{% url 'readOneCourse' course.id %}"
+                  class="btn btn-sm btn-outline-info"
+                >
+                  View
+                </a>
+              </div>
+              <hr />
+            </div>
+            {% endfor %} {% else %}
+            <p class="text-muted small">No recommendations available</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
