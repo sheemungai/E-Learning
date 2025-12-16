@@ -1,0 +1,167 @@
+<!-- firstApp/templates/firstApp/payment_status.html -->
+{% extends 'index.html' %}
+{% block content %}
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow text-center">
+          <div class="card-body py-5">
+            
+            {% if payment.status == 'completed' %}
+              <!-- SUCCESS STATE -->
+              <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+              <h3 class="mt-4 text-success fw-bold">Payment Successful!</h3>
+              <p class="text-muted">Your enrollment is now active</p>
+              
+              <div class="alert alert-success mx-auto mt-4" style="max-width: 400px;">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Transaction ID:</span>
+                  <strong>{{ payment.transaction_id|default:"N/A" }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Amount:</span>
+                  <strong>KSh {{ payment.amount }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Course:</span>
+                  <strong>{{ course.title }}</strong>
+                </div>
+              </div>
+              
+              <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
+                <a href="{% url 'courseLessons' course.id %}" class="btn btn-success btn-lg">
+                  <i class="bi bi-play-circle"></i> Start Learning
+                </a>
+                <a href="{% url 'userDashboard' %}" class="btn btn-outline-info">
+                  <i class="bi bi-house-door"></i> Go to Dashboard
+                </a>
+              </div>
+              
+            {% elif payment.status == 'failed' %}
+              <!-- FAILED STATE -->
+              <i class="bi bi-x-circle-fill text-danger" style="font-size: 5rem;"></i>
+              <h3 class="mt-4 text-danger fw-bold">Payment Failed</h3>
+              <p class="text-muted">The payment could not be processed</p>
+              
+              <div class="alert alert-danger mx-auto mt-4" style="max-width: 400px;">
+                <p class="mb-0">
+                  <i class="bi bi-exclamation-triangle"></i> 
+                  There was an issue processing your payment. Please try again.
+                </p>
+              </div>
+              
+              <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
+                <a href="{% url 'coursePayment' enrollment.id %}" class="btn btn-warning btn-lg">
+                  <i class="bi bi-arrow-repeat"></i> Try Again
+                </a>
+                <a href="{% url 'courses' %}" class="btn btn-outline-secondary">
+                  <i class="bi bi-arrow-left"></i> Back to Courses
+                </a>
+              </div>
+              
+            {% elif payment.status == 'cancelled' %}
+              <!-- CANCELLED STATE -->
+              <i class="bi bi-x-octagon-fill text-secondary" style="font-size: 5rem;"></i>
+              <h3 class="mt-4 text-secondary fw-bold">Payment Cancelled</h3>
+              <p class="text-muted">You cancelled the payment</p>
+              
+              <div class="d-grid gap-2 col-md-8 mx-auto mt-4">
+                <a href="{% url 'coursePayment' enrollment.id %}" class="btn btn-info btn-lg">
+                  <i class="bi bi-credit-card"></i> Make Payment
+                </a>
+                <a href="{% url 'courses' %}" class="btn btn-outline-secondary">
+                  <i class="bi bi-arrow-left"></i> Back to Courses
+                </a>
+              </div>
+              
+            {% else %}
+              <!-- PENDING STATE -->
+              <div class="spinner-border text-warning mb-4" role="status" style="width: 5rem; height: 5rem;">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <h3 class="mt-3 text-warning fw-bold">Processing Payment...</h3>
+              <p class="text-muted">Please complete the payment on your phone</p>
+              
+              <div class="alert alert-info mx-auto mt-4" style="max-width: 400px;">
+                <i class="bi bi-phone-fill"></i> 
+                <strong>Check your phone</strong> for the M-Pesa prompt and enter your PIN to complete the payment.
+              </div>
+              
+              <div class="alert alert-warning mx-auto" style="max-width: 400px;">
+                <small>
+                  <i class="bi bi-info-circle"></i> 
+                  The M-Pesa prompt expires in 30 seconds. Please complete it promptly.
+                </small>
+              </div>
+              
+              <div class="d-grid gap-2 col-md-6 mx-auto mt-4">
+                <a href="{% url 'paymentStatus' payment.id %}" class="btn btn-outline-info">
+                  <i class="bi bi-arrow-clockwise"></i> Refresh Status
+                </a>
+                <a href="{% url 'courses' %}" class="btn btn-outline-secondary btn-sm">
+                  Cancel
+                </a>
+              </div>
+              
+            {% endif %}
+            
+            <!-- Footer Navigation -->
+            <div class="mt-5 pt-4 border-top">
+              <p class="text-muted mb-2">
+                <small>Payment ID: #{{ payment.id }}</small>
+              </p>
+              <a href="{% url 'courses' %}" class="text-decoration-none">
+                <i class="bi bi-house"></i> Back to Courses
+              </a>
+              <span class="mx-2 text-muted">|</span>
+              <a href="{% url 'userDashboard' %}" class="text-decoration-none">
+                <i class="bi bi-speedometer2"></i> Dashboard
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Payment Info Card -->
+        <div class="card mt-3">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-muted">
+              <i class="bi bi-info-circle"></i> Payment Information
+            </h6>
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <strong>Status:</strong> 
+                {% if payment.status == 'completed' %}
+                  <span class="badge bg-success">Completed</span>
+                {% elif payment.status == 'pending' %}
+                  <span class="badge bg-warning text-dark">Pending</span>
+                {% elif payment.status == 'failed' %}
+                  <span class="badge bg-danger">Failed</span>
+                {% else %}
+                  <span class="badge bg-secondary">{{ payment.status }}</span>
+                {% endif %}
+              </li>
+              <li class="mb-2">
+                <strong>Amount:</strong> KSh {{ payment.amount }}
+              </li>
+              <li class="mb-2">
+                <strong>Phone:</strong> {{ payment.phone_number }}
+              </li>
+              <li class="mb-2">
+                <strong>Date:</strong> {{ payment.created_at|date:"F d, Y g:i A" }}
+              </li>
+              <li>
+                <strong>Method:</strong> M-Pesa
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

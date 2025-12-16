@@ -24,7 +24,6 @@
         </div>
       </div>
     </div>
-    
   </div>
 </section>
 
@@ -95,18 +94,49 @@
                 View Details
               </a>
             </div>
-          </div>
-
-          <!-- Card Footer -->
-          <div class="card-footer bg-transparent border-top-0 pt-0 pb-3">
-            <div class="d-flex justify-content-between text-muted small">
-              <a
-                href="{% url 'courseLessons' course.id %}"
-                class="btn btn-info text-white fw-semibold"
-              >
-                <i class="bi bi-journal-text"></i> View Lessons
-              </a>
-            </div>
+        </div>
+       
+      
+      
+  
+    
+    <!-- Card Footer -->
+    <div class="card-footer bg-transparent border-top-0 pt-0 pb-3">
+      {% if user.is_authenticated %}
+    
+    {% if course.id in enrolled_course_ids %}
+      <!-- Already enrolled and paid -->
+      <a href="{% url 'courseLessons' course.id %}" class="btn btn-success w-100 fw-semibold">
+        <i class="bi bi-play-circle"></i> View Lessons
+      </a>
+    
+    {% elif course.id in pending_payment_course_ids %}
+      <!-- Enrolled but payment pending -->
+      <div class="alert alert-warning mb-2 py-2">
+        <i class="bi bi-clock"></i> Enrollment pending payment
+      </div>
+      <a href="{% url 'coursePayment' course.id %}" class="btn btn-warning w-100 fw-semibold text-dark">
+        <i class="bi bi-credit-card"></i> Complete Payment (KSh {{ course.price }})
+      </a>
+    
+    {% else %}
+      <!-- Not enrolled yet -->
+      <a href="{% url 'enrollCourse' course.id %}" class="btn btn-info text-white w-100 fw-semibold">
+        <i class="bi bi-bookmark-plus"></i> Enroll Now
+      </a>
+      <small class="text-muted d-block text-center mt-2">
+        Price: KSh {{ course.price }}
+      </small>
+    
+    {% endif %}
+  
+   {% else %}
+    <!-- Not logged in -->
+    <a href="{% url 'login' %}" class="btn btn-outline-info w-100 fw-semibold">
+      <i class="bi bi-lock"></i> Login to Enroll
+    </a>
+  
+   {% endif %}
           </div>
         </div>
       </div>
