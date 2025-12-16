@@ -8,6 +8,12 @@ urlpatterns =[
     path('contact', views.contact, name='contact'),
     path('course-lessons/<str:pk>', views.courseLessons, name='courseLessons'),
     path('mpesaPayment', views.mpesaPayment, name='mpesaPayment'),
+    path('dashboard/', views.userDashboard, name='userDashboard'),
+    path('admin-dashboard/', views.adminDashboard, name='adminDashboard'),
+    path('enroll/<str:pk>/', views.enrollCourse, name='enrollCourse'),
+    path('payment/<str:enrollment_id>/', views.coursePayment, name='coursePayment'),
+    path('payment-status/<str:payment_id>/', views.paymentStatus, name='paymentStatus'),
+    path('mpesa/callback/', views.mpesaCallback, name='mpesaCallback'),
 
 
     # CRUD 

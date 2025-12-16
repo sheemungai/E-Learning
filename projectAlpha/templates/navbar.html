@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-info navbar-dark">
   <div class="container">
-    <a class="navbar-brand fw-bold text-warning" href="{% url 'home' %}">E-TECH</a>
+    <a class="navbar-brand fw-bold text-warning" href="{% url 'home' %}"
+      >E-TECH</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -15,10 +17,36 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active fw-semibold text-dark" aria-current="page" href="{% url 'home' %}">Home</a>
+          <a
+            class="nav-link active fw-semibold text-dark"
+            aria-current="page"
+            href="{% url 'home' %}"
+            >Home</a
+          >
         </li>
+        {% if user.is_authenticated %} {% if user.is_staff %}
         <li class="nav-item">
-          <a class="nav-link fw-semibold text-dark" href="{% url 'about' %}">About Us</a>
+          <a
+            class="nav-link fw-semibold text-dark"
+            href="{% url 'adminDashboard' %}"
+          >
+            <i class="bi bi-speedometer2"></i> Admin Dashboard
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a
+            class="nav-link fw-semibold text-dark"
+            href="{% url 'userDashboard' %}"
+          >
+            <i class="bi bi-house-door"></i> My Dashboard
+          </a>
+        </li>
+        {% endif %} {% endif %}
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-dark" href="{% url 'about' %}"
+            >About Us</a
+          >
         </li>
         <li class="nav-item dropdown">
           <a
@@ -31,10 +59,26 @@
             Explore More
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item fw-semibold text-dark" href="{% url 'courses' %}">Courses</a></li>
-            <li><a class="dropdown-item fw-semibold text-dark" href="{% url 'contact' %}">Contact Us</a></li>
+            <li>
+              <a
+                class="dropdown-item fw-semibold text-dark"
+                href="{% url 'courses' %}"
+                >Courses</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item fw-semibold text-dark"
+                href="{% url 'contact' %}"
+                >Contact Us</a
+              >
+            </li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item fw-semibold text-dark" href="#">Something else here</a></li>
+            <li>
+              <a class="dropdown-item fw-semibold text-dark" href="#"
+                >Something else here</a
+              >
+            </li>
           </ul>
         </li>
       </ul>
